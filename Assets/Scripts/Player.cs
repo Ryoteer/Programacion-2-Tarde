@@ -65,7 +65,9 @@ public class Player : MonoBehaviour
 
         if (Input.GetKeyDown(_jumpKey) && _canJump)
         {
-            Jump();
+            _animator.SetTrigger(_jumpStartName);
+
+            _canJump = false;
         }
     }
 
@@ -77,12 +79,13 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void Jump()
+    public void Attack(int dmg)
     {
-        _canJump = !_canJump;
+        print($"Tomá, comiste <color=orange>{dmg}</color> puntos de daño, gil.");
+    }
 
-        _animator.SetTrigger(_jumpStartName);
-
+    public void Jump()
+    {
         _rb.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
     }
 
@@ -95,7 +98,7 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.layer == 9)
+        if(collision.gameObject.layer != _groundLayer)
         {
             _canJump = true;
 
