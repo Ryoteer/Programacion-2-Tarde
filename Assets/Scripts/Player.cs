@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
 {
     [Header("Animator")]
     [SerializeField] private string _attackTriggerName = "onAttack";
+    [SerializeField] private string _moveBoolName = "isMoving";
     [SerializeField] private string _xAxisName = "xAxis";
     [SerializeField] private string _zAxisName = "zAxis";
 
@@ -42,6 +43,15 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             _animator.SetTrigger(_attackTriggerName);
+
+            if(_xAxis != 0 || _zAxis != 0)
+            {
+                _animator.SetBool(_moveBoolName, true);
+            }
+            else
+            {
+                _animator.SetBool(_moveBoolName, false);
+            }
         }
     }
 
